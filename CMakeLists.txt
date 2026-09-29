@@ -13,11 +13,13 @@ if(NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
 endif()
 
 find_package(SDL3 REQUIRED CONFIG REQUIRED COMPONENTS SDL3-shared)
+find_package(SDL3_mixer REQUIRED CONFIG)
 
 file(GLOB C_SOURCES "${CMAKE_SOURCE_DIR}/src/*.c")
 add_executable(${PROJECT_NAME} ${C_SOURCES})
 
-target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
+target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_mixer::SDL3_mixer SDL3::SDL3)
+
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/include)
 
 install(TARGETS ${PROJECT_NAME}
