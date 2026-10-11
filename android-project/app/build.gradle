@@ -3,6 +3,7 @@ plugins {
 }
 
 def buildWithCMake = project.hasProperty('BUILD_WITH_CMAKE');
+def generatedAudioAssets = layout.buildDirectory.dir("generated/audioAssets")
 
 android {
     namespace = "org.libsdl.app"
@@ -50,6 +51,21 @@ android {
     lint {
         abortOnError = false
     }
+    sourceSets {
+        main {
+            assets.srcDir(generatedAudioAssets)
+        }
+    }
+}
+
+
+tasks.register("copyAssets", Copy) {
+    from("$rootDir/../../resources")
+    into(generatedAudioAssets.map { it.dir("resources") })
+}
+
+tasks.named("preBuild").configure {
+    dependsOn("copyAssets")
 }
 
 dependencies {
