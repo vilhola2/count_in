@@ -8,7 +8,7 @@ def generatedAudioAssets = layout.buildDirectory.dir("generated/audioAssets")
 android {
     namespace = "org.libsdl.app"
     compileSdkVersion 35
-    ndkVersion = "28.2.13676358"
+    ndkVersion "28.2.13676358"
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 35
@@ -60,7 +60,7 @@ android {
 
 
 tasks.register("copyAssets", Copy) {
-    from("$rootDir/../../resources")
+    from("$rootDir/../resources")
     into(generatedAudioAssets.map { it.dir("resources") })
 }
 
