@@ -2,3 +2,6 @@ bin/
 build/
 count_in
 count_in.exe
+android-project/.gradle/
+android-project/app/.cxx/
+android-project/app/build/
