@@ -1,10 +1,11 @@
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.5)
 
 project(count_in C)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS ON)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
 add_compile_options(
     -Wall
@@ -46,6 +47,10 @@ if(ANDROID)
 else()
     add_executable(${PROJECT_NAME} ${C_SOURCES})
     set(APP_TARGET ${PROJECT_NAME})
+endif()
+
+if(WIN32)
+    set_property(TARGET ${APP_TARGET} PROPERTY WIN32_EXECUTABLE "$<CONFIG:Release>")
 endif()
 
 target_include_directories(${APP_TARGET}

@@ -5,3 +5,5 @@ count_in.exe
 android-project/.gradle/
 android-project/app/.cxx/
 android-project/app/build/
+*.dll
+*.so
