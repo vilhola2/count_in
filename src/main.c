@@ -34,6 +34,12 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
                     MIX_SetTrackAudio(app->track1, g_default_metronome.tock);
                     MIX_PlayTrack(app->track1, 0);
                     break;
+                case SDLK_M:
+                    start_metronome(&g_default_metronome);
+                    break;
+                case SDLK_S:
+                    stop_metronome(&g_default_metronome);
+                    break;
             }
             break;
         case SDL_EVENT_FINGER_DOWN:
@@ -45,7 +51,8 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
 }
 
 SDL_AppResult SDL_AppIterate(void *appstate) {
-    (void) appstate;
+    Appstate *app = appstate;
+    update_metronome(app, &g_default_metronome);
     return SDL_APP_CONTINUE;
 }
 

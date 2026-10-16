@@ -4,6 +4,7 @@ bool init_sdl(Appstate *app) {
     if (!SDL_SetAppMetadata("Count In", "1", "io.github.vilhola2.countin")) return false;
     if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS)) return false;
     app->window = SDL_CreateWindow("Count In", 800, 600, 0);
+    app->renderer = SDL_CreateRenderer(app->window, NULL);
     MIX_Init();
     app->mixer = MIX_CreateMixerDevice(SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK, NULL);
     app->track1 = MIX_CreateTrack(app->mixer);
@@ -17,9 +18,9 @@ inline bool init_metronome(
     const char *tock_path,
     double bpm
 ) {
+    *m = (Metronome) { .bpm = bpm };
     if (!(m->tick = MIX_LoadAudio(app->mixer, tick_path, false))) return false;
     if (!(m->tock = MIX_LoadAudio(app->mixer, tock_path, false))) return false;
-    m->bpm = bpm;
     return true;
 }
 
@@ -31,5 +32,6 @@ bool init_globals(Appstate *app) {
         "resources/tock.wav",
         120.0
     )) return false;
+    g_frequency = SDL_GetPerformanceFrequency();
     return true;
 }
